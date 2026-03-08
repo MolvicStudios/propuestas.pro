@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary SEO -->
+  <title>Propuestas.pro — Generador de Propuestas Comerciales con IA | Gratis</title>
+  <meta name="description" content="Crea propuestas comerciales, cotizaciones y one-pagers profesionales en minutos. 8 plantillas por sector, bilingüe ES/EN, con IA o sin conexión. Gratis, sin registro. Por MolvicStudios.">
+  <meta name="keywords" content="generador de propuestas comerciales, crear cotización online gratis, plantilla propuesta comercial, hacer propuesta de servicios, generador de cotizaciones, business proposal generator, quote generator, MolvicStudios, propuestas con IA">
+  <meta name="author" content="MolvicStudios">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://propuestas.pro/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://propuestas.pro/">
+  <meta property="og:title" content="Propuestas.pro — Generador de Propuestas Comerciales con IA">
+  <meta property="og:description" content="Crea propuestas comerciales profesionales en minutos. 8 plantillas por sector, bilingüe, gratis.">
+  <meta property="og:image" content="https://propuestas.pro/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Propuestas.pro by MolvicStudios">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Propuestas.pro — Generador de Propuestas Comerciales con IA">
+  <meta name="twitter:description" content="Propuestas comerciales profesionales en minutos. Gratis, bilingüe, sin registro.">
+  <meta name="twitter:image" content="https://propuestas.pro/og-image.png">
+
+  <!-- AdSense -->
+  <meta name="google-adsense-account" content="ca-pub-1513893788851225">
+
+  <!-- Theme -->
+  <meta name="theme-color" content="#08080a">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Propuestas.pro",
+    "alternateName": "Propuestas.pro by MolvicStudios",
+    "url": "https://propuestas.pro/",
+    "description": "Generador de propuestas comerciales profesionales con IA. 8 plantillas por sector, bilingüe ES/EN, gratis, sin registro.",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "creator": { "@type": "Organization", "name": "MolvicStudios", "url": "https://molvicstudios.com/" },
+    "inLanguage": ["es", "en"],
+    "featureList": [
+      "8 sector-specific proposal templates",
+      "Online mode with Groq AI (Llama 3.3)",
+      "Offline mode with advanced templates",
+      "Bilingual interface (Spanish / English)",
+      "Proposal history and favorites",
+      "Real-time live preview",
+      "Copy, download, and regenerate proposals",
+      "Step-by-step wizard form"
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       NOSCRIPT
+  ───────────────────────────────────────────────────────────────────────── -->
+  <noscript>
+    <div class="noscript-banner">
+      <h2>JavaScript requerido / JavaScript required</h2>
+      <p>
+        Propuestas.pro requiere JavaScript para funcionar. Por favor actívalo en tu navegador.<br>
+        <em>Propuestas.pro requires JavaScript to work. Please enable it in your browser.</em>
+      </p>
+    </div>
+  </noscript>
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       NAVBAR
+  ───────────────────────────────────────────────────────────────────────── -->
+  <header>
+    <nav class="navbar" role="navigation" aria-label="Navegación principal">
+      <div class="navbar__inner">
+
+        <!-- Logo -->
+        <a href="/" class="navbar__brand" aria-label="Propuestas.pro — Inicio">
+          <span class="navbar__logo" id="nav-logo">Propuestas<span>.pro</span></span>
+          <span class="navbar__by" id="nav-by">by MolvicStudios</span>
+        </a>
+
+        <!-- Actions -->
+        <div class="navbar__actions">
+          <button class="btn-nav" id="btn-open-history" aria-label="Abrir historial de propuestas">
+            📜 <span>Historial</span>
+          </button>
+          <button class="btn-nav" id="btn-open-favorites" aria-label="Abrir propuestas favoritas">
+            ⭐ <span>Favoritos</span>
+          </button>
+          <button class="btn-lang" id="btn-lang" aria-label="Cambiar idioma">EN</button>
+        </div>
+
+      </div>
+    </nav>
+  </header>
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       MAIN
+  ───────────────────────────────────────────────────────────────────────── -->
+  <main>
+    <div class="container">
+
+      <!-- ══════════════════════════════════════════════════
+           HERO
+      ══════════════════════════════════════════════════ -->
+      <section id="hero" aria-labelledby="hero-heading">
+        <div class="hero__badge" id="hero-badge">100% Gratis · Sin Registro · Sin Backend</div>
+        <h1 class="hero__title" id="hero-heading">
+          <span id="hero-title-1">Genera Propuestas</span>
+          <br>
+          <span class="accent" id="hero-title-accent">Comerciales</span>
+          <br>
+          <span id="hero-title-2">que Cierran Negocios</span>
+        </h1>
+        <p class="hero__tagline" id="hero-tagline">Generador de Propuestas Comerciales con IA</p>
+        <p class="hero__desc" id="hero-desc">
+          8 plantillas por sector. Modo online con Groq AI (Llama 3.3) o modo offline sin conexión. Bilingüe ES/EN. Gratis, sin registro.
+        </p>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           MODE SELECTOR
+      ══════════════════════════════════════════════════ -->
+      <section id="mode-section" aria-labelledby="mode-heading">
+        <p class="section-heading" id="mode-heading">Elige cómo quieres generar tu propuesta</p>
+
+        <div class="mode-cards">
+
+          <!-- Online Card -->
+          <div class="mode-card" id="card-online" role="button" tabindex="0" aria-pressed="false"
+               aria-label="Seleccionar Modo Online con Groq AI">
+            <div class="mode-card__tag" id="card-online-tag">Groq AI</div>
+            <div class="mode-card__title" id="card-online-title">Modo Online</div>
+            <div class="mode-card__desc" id="card-online-desc">
+              Propuestas únicas y persuasivas generadas por IA (Llama 3.3 · 70B). Requiere API key gratuita de Groq.
+            </div>
+            <div class="mode-card__active-badge" id="card-online-badge">✓ Modo Online Activo</div>
+          </div>
+
+          <!-- Offline Card -->
+          <div class="mode-card" id="card-offline" role="button" tabindex="0" aria-pressed="false"
+               aria-label="Seleccionar Modo Offline con plantillas">
+            <div class="mode-card__tag" id="card-offline-tag">Plantillas</div>
+            <div class="mode-card__title" id="card-offline-title">Modo Offline</div>
+            <div class="mode-card__desc" id="card-offline-desc">
+              Propuestas profesionales con 8 plantillas por sector. Sin conexión, sin API key, funciona siempre.
+            </div>
+            <div class="mode-card__active-badge" id="card-offline-badge">✓ Modo Offline Activo</div>
+          </div>
+
+        </div><!-- /.mode-cards -->
+
+        <!-- ─── API KEY PANEL (shown when Online is selected) ─────── -->
+        <div id="api-panel" class="hidden" aria-live="polite">
+
+          <h2 class="api-panel__heading" id="api-panel-heading">Configuración de Groq AI</h2>
+
+          <div class="api-key-row">
+            <label class="sr-only" for="api-key-input" id="label-api-key">API Key de Groq</label>
+            <input
+              type="password"
+              id="api-key-input"
+              class="api-key-input"
+              placeholder="gsk_..."
+              autocomplete="off"
+              spellcheck="false"
+              aria-describedby="api-key-note"
+            >
+            <button class="btn-save-key" id="btn-save-key">Guardar key</button>
+          </div>
+
+          <p class="api-key-note" id="api-key-note">
+            🔒 Tu key se guarda solo en sessionStorage de tu navegador. Nunca se envía a nuestros servidores.
+          </p>
+
+          <a
+            href="https://console.groq.com/keys"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="api-key-link"
+            id="api-key-link"
+          >Obtén tu key gratis →</a>
+
+          <div class="model-select-row">
+            <label class="model-select-label" for="model-select" id="model-label">Modelo de IA:</label>
+            <select class="model-select" id="model-select" aria-label="Seleccionar modelo de IA">
+              <option value="llama-3.3-70b-versatile">Llama 3.3 70B — Potente (recomendado)</option>
+              <option value="llama-3.1-8b-instant">Llama 3.1 8B — Rápido</option>
+            </select>
+          </div>
+
+          <!-- Groq FAQ Accordion -->
+          <div class="groq-faq" id="groq-faq">
+            <button class="groq-faq__toggle" id="groq-faq-toggle" aria-expanded="false" aria-controls="groq-faq-body">
+              <span id="groq-faq-title">¿Qué es la API de Groq y cómo la consigo?</span>
+              <span class="groq-faq__caret" aria-hidden="true">▼</span>
+            </button>
+            <div class="groq-faq__body" id="groq-faq-body" role="region">
+              <ol class="groq-faq__steps" id="groq-faq-steps">
+                <li class="groq-faq__step">
+                  <span class="groq-faq__step-n">1</span>
+                  <span class="groq-faq__step-text">Ve a console.groq.com/keys y crea una cuenta gratuita.</span>
+                </li>
+                <li class="groq-faq__step">
+                  <span class="groq-faq__step-n">2</span>
+                  <span class="groq-faq__step-text">Haz clic en "Create API Key" para generar tu key personal.</span>
+                </li>
+                <li class="groq-faq__step">
+                  <span class="groq-faq__step-n">3</span>
+                  <span class="groq-faq__step-text">Copia la key (comienza con gsk_) y pégala en el campo de arriba.</span>
+                </li>
+                <li class="groq-faq__step">
+                  <span class="groq-faq__step-n">4</span>
+                  <span class="groq-faq__step-text">¡Listo! Genera propuestas profesionales con IA de forma completamente gratuita.</span>
+                </li>
+              </ol>
+            </div>
+          </div><!-- /.groq-faq -->
+
+        </div><!-- /#api-panel -->
+      </section><!-- /#mode-section -->
+
+
+      <!-- ══════════════════════════════════════════════════
+           WIZARD
+      ══════════════════════════════════════════════════ -->
+      <section id="wizard-section" aria-labelledby="wizard-heading">
+        <h2 class="sr-only" id="wizard-heading">Formulario de propuesta comercial</h2>
+
+        <!-- Progress bar -->
+        <div class="wizard-progress" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4" aria-label="Progreso del formulario">
+          <div class="wizard-steps-bar">
+
+            <div class="step-dot active" data-step="1">
+              <div class="step-dot__num">1</div>
+            </div>
+            <div class="step-dot__connector"></div>
+            <div class="step-dot" data-step="2">
+              <div class="step-dot__num">2</div>
+            </div>
+            <div class="step-dot__connector"></div>
+            <div class="step-dot" data-step="3">
+              <div class="step-dot__num">3</div>
+            </div>
+            <div class="step-dot__connector"></div>
+            <div class="step-dot" data-step="4">
+              <div class="step-dot__num">4</div>
+            </div>
+
+          </div><!-- /.wizard-steps-bar -->
+
+          <div class="wizard-step-label" aria-hidden="true">
+            <span class="step-label-item active">Tu Negocio</span>
+            <span class="step-label-item">El Cliente</span>
+            <span class="step-label-item">La Propuesta</span>
+            <span class="step-label-item">Estilo</span>
+          </div>
+        </div><!-- /.wizard-progress -->
+
+
+        <!-- Wizard main (form + live preview) -->
+        <div class="wizard-main">
+
+          <!-- Left: Form Panel -->
+          <div class="wizard-form-panel" role="form" aria-label="Formulario de propuesta">
+
+            <!-- ─── STEP 1: Tu Negocio ───────────────────── -->
+            <div class="wizard-step active" id="step-1" data-step-num="1">
+              <h3 class="wizard-step__heading" data-step="1" id="step1-heading">Tu Negocio</h3>
+
+              <!-- Company name -->
+              <div class="form-group">
+                <label class="form-label" for="company-input" id="label-company">Nombre de empresa o marca *</label>
+                <input
+                  type="text"
+                  id="company-input"
+                  class="form-input"
+                  placeholder="Ej: Agencia Digital Nexo"
+                  maxlength="120"
+                  required
+                  aria-required="true"
+                >
+                <span class="form-error" role="alert"></span>
+              </div>
+
+              <!-- Sector -->
+              <div class="form-group">
+                <label class="form-label" for="sector-select" id="label-sector">Sector o industria *</label>
+                <select id="sector-select" class="form-select" required aria-required="true">
+                  <option value="">Selecciona un sector...</option>
+                  <option value="webdev">Desarrollo Web / App</option>
+                  <option value="marketing">Marketing Digital</option>
+                  <option value="consulting">Consultoría</option>
+                  <option value="design">Diseño Gráfico</option>
+                  <option value="ecommerce">E-commerce</option>
+                  <option value="education">Educación / Formación</option>
+                  <option value="services">Servicios Profesionales</option>
+                  <option value="custom">Otro (personalizado)</option>
+                </select>
+                <span class="form-error" role="alert"></span>
+              </div>
+
+              <!-- Description -->
+              <div class="form-group">
+                <label class="form-label" for="desc-textarea" id="label-desc">Descripción breve de lo que ofreces *</label>
+                <textarea
+                  id="desc-textarea"
+                  class="form-textarea"
+                  rows="3"
+                  maxlength="300"
+                  placeholder="Ej: Somos una agencia especializada en diseño web y posicionamiento SEO para pymes del sector retail..."
+                  required
+                  aria-required="true"
+                  aria-describedby="desc-counter"
+                ></textarea>
+                <div class="char-counter" id="desc-counter" aria-live="polite">0 / 300</div>
+                <span class="form-error" role="alert"></span>
+              </div>
+
+              <!-- Website -->
+              <div class="form-group">
+                <label class="form-label" for="website-input" id="label-website">Sitio web o redes sociales (opcional)</label>
+                <input
+                  type="text"
+                  id="website-input"
+                  class="form-input"
+                  placeholder="https://tuagencia.com o @tuagencia"
+                  maxlength="200"
+                >
+              </div>
+
+            </div><!-- /#step-1 -->
+
+
+            <!-- ─── STEP 2: El Cliente ───────────────────── -->
+            <div class="wizard-step" id="step-2" data-step-num="2">
+              <h3 class="wizard-step__heading" data-step="2" id="step2-heading">El Cliente</h3>
+
+              <!-- Client name -->
+              <div class="form-group">
+                <label class="form-label" for="client-name-input" id="label-client-name">Nombre del cliente o empresa *</label>
+                <input
+                  type="text"
+                  id="client-name-input"
+                  class="form-input"
+                  placeholder="Ej: Corporación Horizonte S.A."
+                  maxlength="120"
+                  required
+                  aria-required="true"
+                >
+                <span class="form-error" role="alert"></span>
+              </div>
+
+              <!-- Client role -->
+              <div class="form-group">
+                <label class="form-label" for="client-role-input" id="label-client-role">Cargo del contacto (opcional)</label>
+                <input
+                  type="text"
+                  id="client-role-input"
+                  class="form-input"
+                  placeholder="Ej: Director General, CMO, Fundador"
+                  maxlength="100"
+                >
+              </div>
+
+              <!-- Client need -->
+              <div class="form-group">
+                <label class="form-label" for="client-need-textarea" id="label-client-need">Problema o necesidad específica del cliente *</label>
+                <textarea
+                  id="client-need-textarea"
+                  class="form-textarea"
+                  rows="4"
+                  maxlength="500"
+                  placeholder="Describe el reto o necesidad específica que tiene el cliente y que tú vas a resolver con tu servicio..."
+                  required
+                  aria-required="true"
+                  aria-describedby="client-need-counter"
+                ></textarea>
+                <div class="char-counter" id="client-need-counter" aria-live="polite">0 / 500</div>
+                <span class="form-error" role="alert"></span>
+              </div>
+
+            </div><!-- /#step-2 -->
+
+
+            <!-- ─── STEP 3: La Propuesta ─────────────────── -->
+            <div class="wizard-step" id="step-3" data-step-num="3">
+              <h3 class="wizard-step__heading" data-step="3" id="step3-heading">La Propuesta</h3>
+
+              <!-- Doc type -->
+              <div class="form-group">
+                <label class="form-label" for="doc-type-select" id="label-doc-type">Tipo de documento *</label>
+                <select id="doc-type-select" class="form-select">
+                  <option value="full">Propuesta completa</option>
+                  <option value="quote">Cotización rápida</option>
+                  <option value="onepager">One-pager</option>
+                  <option value="followup">Email de seguimiento</option>
+                </select>
+              </div>
+
+              <!-- Service -->
+              <div class="form-group">
+                <label class="form-label" for="service-textarea" id="label-service">Servicio o producto que ofreces *</label>
+                <textarea
+                  id="service-textarea"
+                  class="form-textarea"
+                  rows="3"
+                  placeholder="Describe en detalle el servicio o producto que vas a ofrecer al cliente..."
+                  required
+                  aria-required="true"
+                ></textarea>
+                <span class="form-error" role="alert"></span>
+              </div>
+
+              <!-- Price + currency -->
+              <div class="form-group">
+                <label class="form-label" id="label-price">Precio o rango de precios *</label>
+                <div class="price-row">
+                  <select id="currency-select" class="form-select" aria-label="Moneda" style="width:100px">
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="MXN">MXN</option>
+                    <option value="COP">COP</option>
+                    <option value="ARS">ARS</option>
+                    <option value="CLP">CLP</option>
+                    <option value="PEN">PEN</option>
+                  </select>
+                  <input
+                    type="text"
+                    id="price-input"
+                    class="form-input"
+                    placeholder="Ej: 2,500 · Desde 1,000 · 50/hora"
+                    required
+                    aria-required="true"
+                  >
+                </div>
+                <span class="form-error" role="alert"></span>
+              </div>
+
+              <!-- Delivery -->
+              <div class="form-group">
+                <label class="form-label" for="delivery-input" id="label-delivery">Plazo de entrega estimado</label>
+                <input
+                  type="text"
+                  id="delivery-input"
+                  class="form-input"
+                  placeholder="Ej: 4-6 semanas"
+                  maxlength="80"
+                >
+              </div>
+
+              <!-- Differentiators -->
+              <div class="form-group">
+                <label class="form-label" for="differ-textarea" id="label-differ">Diferenciadores clave</label>
+                <textarea
+                  id="differ-textarea"
+                  class="form-textarea"
+                  rows="3"
+                  placeholder="¿Qué te hace diferente de la competencia? Lista tus ventajas principales, metodología, experiencia..."
+                ></textarea>
+              </div>
+
+              <!-- Guarantee -->
+              <div class="form-group">
+                <label class="form-label" for="guarantee-input" id="label-guarantee">Garantía o política de satisfacción (opcional)</label>
+                <input
+                  type="text"
+                  id="guarantee-input"
+                  class="form-input"
+                  placeholder="Ej: 30 días de soporte post-entrega incluidos sin costo adicional"
+                  maxlength="200"
+                >
+              </div>
+
+            </div><!-- /#step-3 -->
+
+
+            <!-- ─── STEP 4: Estilo y Opciones ────────────── -->
+            <div class="wizard-step" id="step-4" data-step-num="4">
+              <h3 class="wizard-step__heading" data-step="4" id="step4-heading">Estilo y Opciones</h3>
+
+              <!-- Tone -->
+              <div class="form-group">
+                <label class="form-label" id="label-tone">Tono de la propuesta</label>
+                <div class="toggle-group" role="group" aria-labelledby="label-tone">
+                  <button class="toggle-btn tone-btn active" data-tone="formal" type="button">Formal</button>
+                  <button class="toggle-btn tone-btn" data-tone="friendly" type="button">Cercano</button>
+                  <button class="toggle-btn tone-btn" data-tone="technical" type="button">Técnico</button>
+                  <button class="toggle-btn tone-btn" data-tone="persuasive" type="button">Persuasivo</button>
+                </div>
+              </div>
+
+              <!-- Language of proposal -->
+              <div class="form-group">
+                <label class="form-label" id="label-lang-prop">Idioma de la propuesta</label>
+                <div class="lang-toggle-group toggle-group" role="group" aria-labelledby="label-lang-prop">
+                  <button class="toggle-btn lang-btn active" data-lang="es" type="button">🇪🇸 Español</button>
+                  <button class="toggle-btn lang-btn" data-lang="en" type="button">🇺🇸 English</button>
+                </div>
+              </div>
+
+              <!-- Optional sections -->
+              <div class="form-group">
+                <label class="form-label" id="label-sections">Secciones adicionales (opcional)</label>
+                <div class="checkbox-group" role="group" aria-labelledby="label-sections">
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" class="section-check" data-section="testimonials" id="check-testimonials">
+                    <span class="section-label checkbox-item__label" data-section="testimonials">Testimonios / Casos de éxito</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" class="section-check" data-section="pricing" id="check-pricing">
+                    <span class="section-label checkbox-item__label" data-section="pricing">Tabla de precios detallada</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" class="section-check" data-section="timeline" id="check-timeline">
+                    <span class="section-label checkbox-item__label" data-section="timeline">Timeline / Fases del proyecto</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" class="section-check" data-section="faq" id="check-faq">
+                    <span class="section-label checkbox-item__label" data-section="faq">Preguntas frecuentes (FAQ)</span>
+                  </label>
+
+                </div>
+              </div>
+
+            </div><!-- /#step-4 -->
+
+
+            <!-- ─── Wizard Navigation ─────────────────────── -->
+            <div class="wizard-nav">
+              <button class="btn-prev" id="btn-prev" disabled aria-label="Paso anterior">
+                <span id="btn-prev-text">← Anterior</span>
+              </button>
+
+              <span class="wizard-step-info" id="wizard-step-info" aria-live="polite">1 / 4</span>
+
+              <button class="btn-next" id="btn-next" aria-label="Siguiente paso">
+                <span id="btn-next-text">Siguiente →</span>
+              </button>
+
+              <button class="btn-generate hidden" id="btn-generate" aria-label="Generar propuesta comercial">
+                <span id="btn-generate-text">✦ Generar Propuesta</span>
+              </button>
+            </div>
+
+          </div><!-- /.wizard-form-panel -->
+
+
+          <!-- Right: Live Preview Panel -->
+          <aside class="live-preview-panel" id="live-preview-panel" aria-label="Vista previa en tiempo real" aria-live="polite">
+
+            <div class="live-preview-panel__header">
+              <span class="live-preview-panel__title" id="live-preview-title">✦ Vista Previa en Tiempo Real</span>
+              <span class="live-preview-dot" aria-hidden="true"></span>
+            </div>
+
+            <div class="live-preview-content">
+              <p class="live-preview-empty" id="live-preview-empty">
+                Completa al menos empresa, cliente y servicio para ver la vista previa actualizada automáticamente...
+              </p>
+              <pre class="live-preview-pre hidden" id="live-preview-pre" aria-label="Contenido de la vista previa"></pre>
+            </div>
+
+          </aside><!-- /.live-preview-panel -->
+
+        </div><!-- /.wizard-main -->
+
+      </section><!-- /#wizard-section -->
+
+
+      <!-- ══════════════════════════════════════════════════
+           RESULT PANEL
+      ══════════════════════════════════════════════════ -->
+      <section id="result-section" class="hidden" aria-labelledby="result-title">
+
+        <div class="result-panel">
+
+          <!-- Header -->
+          <div class="result-panel__header">
+            <h2 class="result-panel__title" id="result-title">Tu Propuesta Comercial</h2>
+            <div class="result-panel__header-right">
+              <span class="result-badge offline" id="result-badge">📄 Generada offline</span>
+              <button class="btn-favorite" id="btn-favorite" aria-label="Guardar en favoritos" aria-pressed="false">
+                <span id="btn-favorite-text">☆ Guardar en favoritos</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Actions row -->
+          <div class="result-actions" id="result-actions">
+            <button class="btn-action" id="btn-copy" aria-label="Copiar propuesta al portapapeles">
+              <span>⎘ Copiar</span>
+            </button>
+            <button class="btn-action" id="btn-download" aria-label="Descargar propuesta como archivo de texto">
+              <span>↓ Descargar .txt</span>
+            </button>
+            <button class="btn-action" id="btn-regenerate" aria-label="Regenerar propuesta">
+              <span>↺ Regenerar</span>
+            </button>
+            <button class="btn-action" id="btn-new" aria-label="Crear nueva propuesta">
+              <span>+ Nueva propuesta</span>
+            </button>
+          </div>
+
+          <!-- Variants row -->
+          <div class="result-variants" role="group" aria-label="Variantes de la propuesta">
+            <span class="variants-label" id="variants-label">Variantes rápidas:</span>
+            <button class="variant-chip" data-variant="formal">Más formal</button>
+            <button class="variant-chip" data-variant="persuasive">Más persuasivo</button>
+            <button class="variant-chip" data-variant="shorter">Más corto</button>
+            <button class="variant-chip" data-variant="guarantee">Añadir garantía</button>
+          </div>
+
+          <!-- Proposal content area -->
+          <div class="result-content-wrap">
+
+            <!-- Skeleton loader -->
+            <div class="skeleton-loader" id="skeleton-loader">
+              <div class="skeleton-loader__title">
+                <div class="skeleton-spinner" aria-hidden="true"></div>
+                <span id="skeleton-title">Generando tu propuesta...</span>
+              </div>
+              <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:16px;" id="skeleton-desc">
+                La IA está redactando una propuesta única y persuasiva para tu cliente. Espera un momento...
+              </p>
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line"></div>
+            </div>
+
+            <!-- Generated proposal -->
+            <pre
+              class="proposal-pre hidden"
+              id="proposal-pre"
+              aria-label="Contenido de la propuesta generada"
+              tabindex="0"
+            ></pre>
+
+          </div><!-- /.result-content-wrap -->
+
+        </div><!-- /.result-panel -->
+
+      </section><!-- /#result-section -->
+
+    </div><!-- /.container -->
+  </main><!-- /main -->
+
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       HISTORY PANEL (slide-in sidebar)
+  ───────────────────────────────────────────────────────────────────────── -->
+  <aside id="history-panel" class="side-panel" role="complementary" aria-label="Historial de propuestas">
+    <div class="side-panel__header">
+      <h2 class="side-panel__title" id="history-panel-title">📜 Historial de Propuestas</h2>
+      <button class="btn-panel-close" id="btn-close-history" aria-label="Cerrar historial">✕</button>
+    </div>
+    <div class="side-panel__list" id="history-list" aria-live="polite">
+      <p class="panel-empty">Aún no has generado propuestas. Cuando generes una, aparecerá aquí automáticamente.</p>
+    </div>
+    <div class="side-panel__footer">
+      <button class="btn-clear-all" id="btn-clear-history">Borrar todo el historial</button>
+    </div>
+  </aside>
+
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       FAVORITES PANEL (slide-in sidebar)
+  ───────────────────────────────────────────────────────────────────────── -->
+  <aside id="favorites-panel" class="side-panel" role="complementary" aria-label="Propuestas favoritas">
+    <div class="side-panel__header">
+      <h2 class="side-panel__title" id="favorites-panel-title">⭐ Propuestas Favoritas</h2>
+      <button class="btn-panel-close" id="btn-close-favorites" aria-label="Cerrar favoritos">✕</button>
+    </div>
+    <div class="side-panel__list" id="favorites-list" aria-live="polite">
+      <p class="panel-empty">No tienes propuestas favoritas todavía. Marca una propuesta con ★ para guardarla aquí.</p>
+    </div>
+    <div class="side-panel__footer">
+      <button class="btn-clear-all" id="btn-clear-favorites">Borrar todos los favoritos</button>
+    </div>
+  </aside>
+
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       OVERLAY
+  ───────────────────────────────────────────────────────────────────────── -->
+  <div id="overlay" aria-hidden="true"></div>
+
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       TOASTS
+  ───────────────────────────────────────────────────────────────────────── -->
+  <div class="draft-toast" id="draft-toast" role="status" aria-live="polite">✓ Borrador guardado</div>
+  <div class="error-toast" id="error-toast" role="alert" aria-live="assertive"></div>
+
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       FOOTER
+  ───────────────────────────────────────────────────────────────────────── -->
+  <footer role="contentinfo">
+    <div class="footer__inner">
+
+      <div class="footer__brand" id="footer-brand">
+        Propuestas<span class="accent">.pro</span>
+      </div>
+      <p class="footer__tagline" id="footer-tagline">Generador de Propuestas Comerciales con IA</p>
+      <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:var(--sp-6);">by MolvicStudios</p>
+
+      <div class="footer__divider"></div>
+
+      <p class="footer__cross-promo-title" id="footer-promo-title">Más herramientas gratuitas de MolvicStudios:</p>
+      <nav class="footer__cross-promo-links" id="footer-promo-links" aria-label="Herramientas de MolvicStudios">
+        <a href="https://prospectly.pro" target="_blank" rel="noopener noreferrer">¿Necesitas más clientes? → Prospectly</a>
+        <a href="https://promptgenius.pro" target="_blank" rel="noopener noreferrer">Genera prompts para IA → PromptGenius.pro</a>
+        <a href="https://iafacil.help" target="_blank" rel="noopener noreferrer">Aprende sobre IA → iafacil.help</a>
+      </nav>
+
+      <div class="footer__divider"></div>
+
+      <p class="footer__rights" id="footer-rights">© 2026 MolvicStudios. Todos los derechos reservados.</p>
+      <p class="footer__disclaimer" id="footer-disclaimer">Sin cookies de seguimiento · Sin backend · 100% en tu navegador</p>
+
+    </div>
+  </footer>
+
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       APP SCRIPT (ES Module)
+  ───────────────────────────────────────────────────────────────────────── -->
+  <script type="module" src="js/app.js"></script>
+
+</body>
+</html>
