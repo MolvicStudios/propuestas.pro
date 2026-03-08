@@ -186,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
   restoreMode();
   restoreApiKey();
   bindEvents();
+  initCookieBanner();
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -318,6 +319,12 @@ function renderUI(lang) {
       .map(l => `<a href="${l.url}" target="_blank" rel="noopener noreferrer">${l.label}</a>`)
       .join('');
   }
+
+  // Legal links
+  const privLink = document.getElementById('footer-privacy-link');
+  const cookLink = document.getElementById('footer-cookies-link');
+  if (privLink && T.legal) privLink.textContent = T.legal.privacyLink;
+  if (cookLink && T.legal) cookLink.textContent = T.legal.cookiesLink;
 
   // Draft toast
   if (dom.draftToastEl) {
@@ -1136,6 +1143,7 @@ function toggleLanguage() {
   renderUI(state.lang);
   renderHistoryPanel();
   renderFavoritesPanel();
+  updateCookieBannerText();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1388,4 +1396,30 @@ function bindEvents() {
 
   // Initialize step 1 active
   goToStep(1);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// COOKIE CONSENT BANNER
+// ─────────────────────────────────────────────────────────────────────────────
+function initCookieBanner() {
+  if (localStorage.getItem('cookies_accepted')) return;
+  const banner = document.getElementById('cookie-banner');
+  if (!banner) return;
+  banner.classList.add('visible');
+  updateCookieBannerText();
+  document.getElementById('cookie-accept').addEventListener('click', () => {
+    localStorage.setItem('cookies_accepted', 'true');
+    banner.classList.remove('visible');
+  });
+}
+
+function updateCookieBannerText() {
+  const banner = document.getElementById('cookie-banner');
+  if (!banner || !banner.classList.contains('visible')) return;
+  const isES = state.lang === 'es';
+  document.getElementById('cookie-text').textContent = isES
+    ? 'Utilizamos cookies propias y de terceros (Google AdSense) para mostrar publicidad personalizada. Al continuar navegando, aceptas su uso.'
+    : 'We use our own and third-party cookies (Google AdSense) to display personalized advertising. By continuing to browse, you accept their use.';
+  document.getElementById('cookie-accept').textContent = isES ? 'Aceptar' : 'Accept';
+  document.getElementById('cookie-info').textContent   = isES ? 'Más información' : 'More info';
 }

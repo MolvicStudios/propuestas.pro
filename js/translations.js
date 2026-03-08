@@ -210,6 +210,10 @@ export const translations = {
       groqError: 'Error al conectar con Groq. Verifica tu API key o intenta más tarde.',
       networkError: 'Error de red. Verifica tu conexión a internet.',
       noModeSelected: 'Selecciona el modo Online u Offline antes de generar.'
+    },
+    legal: {
+      privacyLink: 'Política de Privacidad',
+      cookiesLink: 'Política de Cookies'
     }
   },
 
@@ -423,6 +427,10 @@ export const translations = {
       groqError: 'Error connecting to Groq. Check your API key or try again later.',
       networkError: 'Network error. Check your internet connection.',
       noModeSelected: 'Select Online or Offline mode before generating.'
+    },
+    legal: {
+      privacyLink: 'Privacy Policy',
+      cookiesLink: 'Cookie Policy'
     }
   }
 };
