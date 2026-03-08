@@ -32,14 +32,24 @@
 
   <!-- AdSense -->
   <meta name="google-adsense-account" content="ca-pub-1513893788851225">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1513893788851225"
+          crossorigin="anonymous"></script>
 
   <!-- Theme -->
   <meta name="theme-color" content="#08080a">
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+  <!-- DNS Prefetch para librerías de exportación (lazy-loaded) -->
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://unpkg.com">
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=optional" rel="stylesheet">
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
@@ -136,7 +146,62 @@
         <p class="hero__desc" id="hero-desc">
           8 plantillas por sector. Modo online con Groq AI (Llama 3.3) o modo offline sin conexión. Bilingüe ES/EN. Gratis, sin registro.
         </p>
+        <a href="#mode-section" class="hero__cta" id="hero-cta">Empezar ahora — es gratis →</a>
       </section>
+
+
+      <!-- ══════════════════════════════════════════════════
+           CÓMO FUNCIONA
+      ══════════════════════════════════════════════════ -->
+      <section id="how-it-works" aria-labelledby="hiw-heading">
+        <h2 class="section-heading" id="hiw-heading">Cómo funciona en 4 pasos</h2>
+        <div class="hiw__grid">
+
+          <div class="hiw__step fade-up fade-up-1">
+            <div class="hiw__step-n" aria-hidden="true">1</div>
+            <div class="hiw__step-icon" aria-hidden="true">⚡</div>
+            <h3 class="hiw__step-title" id="hiw-s1-title">Elige el modo</h3>
+            <p class="hiw__step-desc" id="hiw-s1-desc">Online con Groq AI para propuestas únicas, u Offline con plantillas. Sin cuenta ni instalación.</p>
+          </div>
+
+          <div class="hiw__step fade-up fade-up-2">
+            <div class="hiw__step-n" aria-hidden="true">2</div>
+            <div class="hiw__step-icon" aria-hidden="true">📝</div>
+            <h3 class="hiw__step-title" id="hiw-s2-title">Rellena el wizard</h3>
+            <p class="hiw__step-desc" id="hiw-s2-desc">4 pasos guiados con tus datos de empresa, cliente y servicio. Borrador guardado automáticamente.</p>
+          </div>
+
+          <div class="hiw__step fade-up fade-up-3">
+            <div class="hiw__step-n" aria-hidden="true">3</div>
+            <div class="hiw__step-icon" aria-hidden="true">❆</div>
+            <h3 class="hiw__step-title" id="hiw-s3-title">Genera en segundos</h3>
+            <p class="hiw__step-desc" id="hiw-s3-desc">La IA redacta una propuesta única para tu cliente. En modo offline: plantillas por sector.</p>
+          </div>
+
+          <div class="hiw__step fade-up fade-up-4">
+            <div class="hiw__step-n" aria-hidden="true">4</div>
+            <div class="hiw__step-icon" aria-hidden="true">📤</div>
+            <h3 class="hiw__step-title" id="hiw-s4-title">Descarga y envía</h3>
+            <p class="hiw__step-desc" id="hiw-s4-desc">Exporta en PDF, DOCX o copia directa. Historial automático de propuestas generadas.</p>
+          </div>
+
+        </div><!-- /.hiw__grid -->
+      </section><!-- /#how-it-works -->
+
+
+      <!-- ── AD: Entre how-it-works y el selector de modo ───────────────────
+           ⚠ Reemplaza data-ad-slot con el ID de bloque real de tu panel AdSense.
+      ───────────────────────────────────────────────────────────── -->
+      <div class="ad-unit" aria-label="Publicidad" role="complementary">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1513893788851225"
+             data-ad-slot="REEMPLAZAR_CON_ID_BLOQUE"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+
 
       <!-- ══════════════════════════════════════════════════
            MODE SELECTOR
@@ -643,6 +708,9 @@
             <button class="btn-action" id="btn-new" aria-label="Crear nueva propuesta">
               <span>+ Nueva propuesta</span>
             </button>
+            <button class="btn-action" id="btn-share" aria-label="Compartir propuesta">
+              <span id="btn-share-text">↑ Compartir</span>
+            </button>
           </div>
 
           <!-- Variants row -->
@@ -652,6 +720,18 @@
             <button class="variant-chip" data-variant="persuasive">Más persuasivo</button>
             <button class="variant-chip" data-variant="shorter">Más corto</button>
             <button class="variant-chip" data-variant="guarantee">Añadir garantía</button>
+          </div>
+
+          <!-- ── AD: In-content (panel de resultado) ──────────────────────────
+               ⚠ Reemplaza data-ad-slot con el ID de bloque real de tu panel AdSense.
+          ───────────────────────────────────────────────────────── -->
+          <div class="ad-unit ad-unit--incontent" id="ad-incontent" aria-label="Publicidad" role="complementary">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1513893788851225"
+                 data-ad-slot="REEMPLAZAR_CON_ID_BLOQUE"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
           </div>
 
           <!-- Proposal content area -->
@@ -791,10 +871,6 @@
   <!-- ── App Script (ES Module) ──────────────────────────────────────────────────────
        APP SCRIPT (ES Module)
   ─────────────────────────────────────────────────────────────────────────────────── -->
-  <!-- jsPDF: PDF export -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <!-- html-docx-js: DOCX export -->
-  <script src="https://unpkg.com/html-docx-js@0.3.1/dist/html-docx.js"></script>
   <script type="module" src="js/app.js"></script>
 
 </body>

@@ -179,6 +179,22 @@ function cacheDOM() {
     footerRights:    $('footer-rights'),
     footerDisclaimer:$('footer-disclaimer'),
 
+    // How It Works + Hero CTA
+    heroCta:      $('hero-cta'),
+    hiwHeading:   $('hiw-heading'),
+    hiwS1Title:   $('hiw-s1-title'),
+    hiwS1Desc:    $('hiw-s1-desc'),
+    hiwS2Title:   $('hiw-s2-title'),
+    hiwS2Desc:    $('hiw-s2-desc'),
+    hiwS3Title:   $('hiw-s3-title'),
+    hiwS3Desc:    $('hiw-s3-desc'),
+    hiwS4Title:   $('hiw-s4-title'),
+    hiwS4Desc:    $('hiw-s4-desc'),
+
+    // Result share
+    btnShare:     $('btn-share'),
+    btnShareText: $('btn-share-text'),
+
     // Toasts
     draftToastEl:    $('draft-toast'),
     errorToast:      $('error-toast'),
@@ -221,6 +237,21 @@ function renderUI(lang) {
   if (dom.heroTitle2)  dom.heroTitle2.textContent   = T.hero.titleLine2;
   if (dom.heroTagline) dom.heroTagline.textContent  = T.hero.tagline;
   if (dom.heroDesc)    dom.heroDesc.textContent     = T.hero.description;
+  if (dom.heroCta)     dom.heroCta.textContent      = T.hero.ctaBtn;
+
+  // How It Works
+  if (dom.hiwHeading) dom.hiwHeading.textContent = T.howItWorks.heading;
+  if (T.howItWorks?.steps) {
+    const s = T.howItWorks.steps;
+    if (dom.hiwS1Title) dom.hiwS1Title.textContent = s[0].title;
+    if (dom.hiwS1Desc)  dom.hiwS1Desc.textContent  = s[0].desc;
+    if (dom.hiwS2Title) dom.hiwS2Title.textContent = s[1].title;
+    if (dom.hiwS2Desc)  dom.hiwS2Desc.textContent  = s[1].desc;
+    if (dom.hiwS3Title) dom.hiwS3Title.textContent = s[2].title;
+    if (dom.hiwS3Desc)  dom.hiwS3Desc.textContent  = s[2].desc;
+    if (dom.hiwS4Title) dom.hiwS4Title.textContent = s[3].title;
+    if (dom.hiwS4Desc)  dom.hiwS4Desc.textContent  = s[3].desc;
+  }
 
   // Mode
   if (dom.modeHeading)    dom.modeHeading.textContent    = T.mode.heading;
@@ -305,6 +336,7 @@ function renderUI(lang) {
   if (dom.btnDownloadPdf)  dom.btnDownloadPdf.querySelector('span').textContent  = T.result.downloadPdfBtn;
   if (dom.btnRegenerate) dom.btnRegenerate.querySelector('span').textContent = T.result.regenerateBtn;
   if (dom.btnNew)        dom.btnNew.querySelector('span').textContent = T.result.newBtn;
+  if (dom.btnShareText)  dom.btnShareText.textContent = T.result.shareBtn;
   if (dom.variantsLabel) dom.variantsLabel.textContent = T.result.variantsLabel;
   dom.variantChips.forEach(chip => {
     const key = chip.dataset.variant;
@@ -469,6 +501,10 @@ function goToStep(step) {
   if (step < 1 || step > state.totalSteps) return;
   state.currentStep = step;
   renderStepInfo();
+
+  // Propuesta #17: actualizar aria-valuenow del progressbar
+  const progressBar = dom.wizardSection?.querySelector('[role="progressbar"]');
+  if (progressBar) progressBar.setAttribute('aria-valuenow', step);
 
   // Show/hide steps
   dom.wizardSteps.forEach((el, i) => {
@@ -689,6 +725,11 @@ function selectMode(mode) {
     dom.apiPanel.classList.toggle('hidden', mode !== 'online');
   }
 
+  // Propuesta #9: abrir automáticamente el FAQ de Groq al seleccionar modo Online
+  if (mode === 'online' && dom.groqFaq && !dom.groqFaq.classList.contains('open')) {
+    dom.groqFaq.classList.add('open');
+  }
+
   scrollToWizard();
 }
 
@@ -798,6 +839,14 @@ function showResultSection() {
   if (dom.wizardSection)  dom.wizardSection.classList.add('hidden');
   if (dom.resultSection)  dom.resultSection.classList.remove('hidden');
   if (dom.resultSection)  dom.resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // Inicializar ad unit in-content cuando el panel se hace visible
+  try {
+    const inResultAd = document.getElementById('ad-incontent')?.querySelector('.adsbygoogle');
+    if (inResultAd && !inResultAd.dataset.adsbygoogleStatus) {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    }
+  } catch (_) {}
 }
 
 function hideResultSection() {
@@ -1027,6 +1076,20 @@ function closeAllPanels() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// LAZY SCRIPT LOADER
+// ─────────────────────────────────────────────────────────────────────────────
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    if (document.querySelector(`script[src="${src}"]`)) { resolve(); return; }
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload  = resolve;
+    s.onerror = () => reject(new Error(`Failed to load: ${src}`));
+    document.head.appendChild(s);
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // COPY & DOWNLOAD
 // ─────────────────────────────────────────────────────────────────────────────
 async function copyToClipboard() {
@@ -1114,13 +1177,17 @@ function clearLogo() {
 // ─────────────────────────────────────────────────────────────────────────────
 // EXPORT TO DOCX
 // ─────────────────────────────────────────────────────────────────────────────
-function downloadDocx() {
+async function downloadDocx() {
   if (!state.currentProposal) return;
   if (typeof htmlDocx === 'undefined') {
-    showToastError(state.lang === 'es'
-      ? 'La librería DOCX no está disponible. Verifica tu conexión a internet.'
-      : 'DOCX library not available. Check your internet connection.');
-    return;
+    try {
+      await loadScript('https://unpkg.com/html-docx-js@0.3.1/dist/html-docx.js');
+    } catch (_) {
+      showToastError(state.lang === 'es'
+        ? 'La librería DOCX no está disponible. Verifica tu conexión a internet.'
+        : 'DOCX library not available. Check your internet connection.');
+      return;
+    }
   }
   const data = collectFormData();
   const logoHtml = state.logoDataUrl
@@ -1145,13 +1212,17 @@ function downloadDocx() {
   }
 }
 
-function downloadPdf() {
+async function downloadPdf() {
   if (!state.currentProposal) return;
   if (typeof window.jspdf === 'undefined') {
-    showToastError(state.lang === 'es'
-      ? 'La librería PDF no está disponible. Verifica tu conexión a internet.'
-      : 'PDF library not available. Check your internet connection.');
-    return;
+    try {
+      await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+    } catch (_) {
+      showToastError(state.lang === 'es'
+        ? 'La librería PDF no está disponible. Verifica tu conexión a internet.'
+        : 'PDF library not available. Check your internet connection.');
+      return;
+    }
   }
   const { jsPDF } = window.jspdf;
   const data = collectFormData();
@@ -1372,6 +1443,13 @@ function bindEvents() {
   dom.cardOnline?.addEventListener('click', () => selectMode('online'));
   dom.cardOffline?.addEventListener('click', () => selectMode('offline'));
 
+  // Propuesta #8: accesibilidad de teclado para mode cards
+  [dom.cardOnline, dom.cardOffline].forEach(card => {
+    card?.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
+    });
+  });
+
   // API key save
   dom.btnSaveKey?.addEventListener('click', () => {
     const key = dom.apiKeyInput?.value.trim();
@@ -1467,6 +1545,7 @@ function bindEvents() {
   dom.btnRegenerate?.addEventListener('click', generateProposal);
   dom.btnNew?.addEventListener('click', newProposal);
   dom.btnFavorite?.addEventListener('click', toggleFavorite);
+  dom.btnShare?.addEventListener('click', shareProposal);
 
   // Variant chips
   dom.variantChips.forEach(chip => {

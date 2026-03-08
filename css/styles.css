@@ -127,7 +127,7 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: 9990;
+  z-index: 2;
   pointer-events: none;
   opacity: 0.035;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
@@ -350,6 +350,114 @@ section { margin-bottom: var(--sp-16); }
   max-width: 580px;
   margin: 0 auto;
   animation: fadeUp var(--t-slow) var(--ease) 0.14s both;
+}
+
+.hero__cta {
+  display: inline-flex;
+  align-items: center;
+  margin-top: var(--sp-6);
+  padding: 14px 32px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: var(--font-display);
+  color: #08080a;
+  background: var(--amber);
+  border-radius: var(--r-md);
+  text-decoration: none;
+  transition: all var(--t-fast) var(--ease);
+  animation: fadeUp var(--t-slow) var(--ease) 0.2s both;
+  border: 2px solid transparent;
+  letter-spacing: -0.01em;
+}
+.hero__cta:hover {
+  background: var(--amber-bright);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-amber);
+  color: #08080a;
+  text-decoration: none;
+}
+.hero__cta:active { transform: scale(0.97); color: #08080a; }
+
+/* ── 10.5. HOW IT WORKS ──────────────────────────────────────────────────────────────── */
+#how-it-works {
+  text-align: center;
+  padding: var(--sp-4) 0 var(--sp-8);
+  animation: fadeUp var(--t-slow) var(--ease) 0.22s both;
+}
+
+.hiw__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-4);
+  margin-top: var(--sp-6);
+  max-width: 1100px;
+  margin-inline: auto;
+}
+
+.hiw__step {
+  padding: var(--sp-6);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  transition: border-color var(--t-base) var(--ease), transform var(--t-base) var(--ease);
+  text-align: left;
+}
+.hiw__step:hover {
+  border-color: var(--amber-dim);
+  transform: translateY(-3px);
+}
+
+.hiw__step-n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--amber-glow2);
+  border: 1px solid rgba(245,166,35,0.3);
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: var(--sp-3);
+}
+
+.hiw__step-icon {
+  font-size: 1.75rem;
+  margin-bottom: var(--sp-2);
+  line-height: 1;
+}
+
+.hiw__step-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--sp-2);
+}
+
+.hiw__step-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ── AD UNITS ────────────────────────────────────────────────────────────────── */
+.ad-unit {
+  text-align: center;
+  margin: var(--sp-6) auto;
+  max-width: 970px;
+  min-height: 90px;
+  overflow: hidden;
+}
+.ad-unit--incontent {
+  padding: var(--sp-3) var(--sp-6);
+  border-top: 1px solid var(--border);
+  background: var(--bg-deep);
+  margin: 0;
+  min-height: 90px;
+  max-width: none;
 }
 
 /* ── 11. MODE SELECTOR ────────────────────────────────────────────────────── */
@@ -1181,17 +1289,20 @@ section { margin-bottom: var(--sp-16); }
 }
 
 .btn-favorite {
-  width: 36px;
   height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  padding: 0 12px;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--text-muted);
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: var(--r-md);
   transition: all var(--t-fast) var(--ease);
+  white-space: nowrap;
 }
 .btn-favorite:hover { color: var(--amber); border-color: var(--amber); }
 .btn-favorite.active { color: var(--amber); background: var(--amber-glow2); border-color: var(--amber); }
@@ -1679,6 +1790,12 @@ footer {
     font-size: 0.65rem;
     min-width: 60px;
   }
+  .proposal-pre,
+  .live-preview-pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .hiw__grid { grid-template-columns: 1fr 1fr; }
 }
 
 /* Tablet: 640px–1023px */

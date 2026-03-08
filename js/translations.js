@@ -22,7 +22,17 @@ export const translations = {
       titleLine2: 'que Cierran Negocios',
       tagline: 'Generador de Propuestas Comerciales con IA',
       description:
-        '8 plantillas por sector. Modo online con Groq AI (Llama 3.3) o modo offline sin conexión. Bilingüe ES/EN. Gratis, sin registro.'
+        '8 plantillas por sector. Modo online con Groq AI (Llama 3.3) o modo offline sin conexión. Bilingüe ES/EN. Gratis, sin registro.',
+      ctaBtn: 'Empezar ahora — es gratis →'
+    },
+    howItWorks: {
+      heading: 'Cómo funciona en 4 pasos',
+      steps: [
+        { title: 'Elige el modo',      desc: 'Online con Groq AI para propuestas únicas, u Offline con plantillas. Sin cuenta ni instalación.' },
+        { title: 'Rellena el wizard',  desc: '4 pasos guiados con tus datos de empresa, cliente y servicio. Borrador guardado automáticamente.' },
+        { title: 'Genera en segundos', desc: 'La IA redacta una propuesta única para tu cliente. En modo offline: plantillas por sector.' },
+        { title: 'Descarga y envía',   desc: 'Exporta en PDF, DOCX o copia directa. Historial automático de propuestas generadas.' }
+      ]
     },
     mode: {
       heading: 'Elige cómo quieres generar tu propuesta',
@@ -173,7 +183,8 @@ export const translations = {
       generatingTitle: 'Generando tu propuesta...',
       generatingDesc:
         'La IA está redactando una propuesta única y persuasiva para tu cliente. Espera un momento...',
-      savedToHistory: '✓ Guardada en historial'
+      savedToHistory: '✓ Guardada en historial',
+      shareBtn: '↑ Compartir'
     },
     history: {
       panelTitle: '📜 Historial de Propuestas',
@@ -242,7 +253,17 @@ export const translations = {
       titleLine2: 'that Close Deals',
       tagline: 'AI-Powered Business Proposal Generator',
       description:
-        '8 sector-specific templates. Online mode with Groq AI (Llama 3.3) or offline without internet. Bilingual ES/EN. Free, no sign-up.'
+        '8 sector-specific templates. Online mode with Groq AI (Llama 3.3) or offline without internet. Bilingual ES/EN. Free, no sign-up.',
+      ctaBtn: "Start now — it's free →"
+    },
+    howItWorks: {
+      heading: 'How it works in 4 steps',
+      steps: [
+        { title: 'Choose mode',         desc: 'Online with Groq AI for unique proposals, or Offline with templates. No account needed.' },
+        { title: 'Fill the wizard',     desc: '4 guided steps with your company, client, and service data. Draft auto-saved.' },
+        { title: 'Generate in seconds', desc: 'AI writes a unique proposal for your client. Offline mode: sector templates.' },
+        { title: 'Download & send',     desc: 'Export as PDF, DOCX or copy to clipboard. Automatic proposal history.' }
+      ]
     },
     mode: {
       heading: 'Choose how to generate your proposal',
@@ -396,7 +417,8 @@ export const translations = {
       generatingTitle: 'Generating your proposal...',
       generatingDesc:
         'AI is writing a unique and persuasive proposal for your client. Please wait a moment...',
-      savedToHistory: '✓ Saved to history'
+      savedToHistory: '✓ Saved to history',
+      shareBtn: '↑ Share'
     },
     history: {
       panelTitle: '📜 Proposal History',
