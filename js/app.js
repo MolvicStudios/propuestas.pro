@@ -18,6 +18,7 @@ const state = {
   isGenerating:  false,
   isFavorite:    false,
   debounceTimer: null,
+  logoDataUrl:   null,   // base64 data URL for company logo
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -102,6 +103,12 @@ function cacheDOM() {
     descTextarea:    $('desc-textarea'),
     descCounter:     $('desc-counter'),
     websiteInput:    $('website-input'),
+    logoInput:       $('logo-input'),
+    logoPreview:     $('logo-preview'),
+    logoUploadPlaceholder: $('logo-upload-placeholder'),
+    logoUploadHint:  $('logo-upload-hint'),
+    btnLogoUpload:   $('btn-logo-upload'),
+    btnLogoRemove:   $('btn-logo-remove'),
 
     // Step 2
     clientNameInput: $('client-name-input'),
@@ -138,6 +145,8 @@ function cacheDOM() {
     resultActions:   $('result-actions'),
     btnCopy:         $('btn-copy'),
     btnDownload:     $('btn-download'),
+    btnDownloadDocx: $('btn-download-docx'),
+    btnDownloadPdf:  $('btn-download-pdf'),
     btnRegenerate:   $('btn-regenerate'),
     btnNew:          $('btn-new'),
     variantChips:    $$('.variant-chip'),
@@ -292,6 +301,8 @@ function renderUI(lang) {
   if (btnFavText) btnFavText.textContent = state.isFavorite ? T.result.favoriteBtnOn : T.result.favoriteBtnOff;
   if (dom.btnCopy)       dom.btnCopy.querySelector('span').textContent = T.result.copyBtn;
   if (dom.btnDownload)   dom.btnDownload.querySelector('span').textContent = T.result.downloadBtn;
+  if (dom.btnDownloadDocx) dom.btnDownloadDocx.querySelector('span').textContent = T.result.downloadDocxBtn;
+  if (dom.btnDownloadPdf)  dom.btnDownloadPdf.querySelector('span').textContent  = T.result.downloadPdfBtn;
   if (dom.btnRegenerate) dom.btnRegenerate.querySelector('span').textContent = T.result.regenerateBtn;
   if (dom.btnNew)        dom.btnNew.querySelector('span').textContent = T.result.newBtn;
   if (dom.variantsLabel) dom.variantsLabel.textContent = T.result.variantsLabel;
@@ -358,6 +369,10 @@ function renderStep1(lang) {
   setPlaceholder('desc-textarea', T.descPlaceholder);
   setLabel('label-website', T.websiteLabel);
   setPlaceholder('website-input', T.websitePlaceholder);
+  setLabel('label-logo', T.logoLabel);
+  if (dom.logoUploadHint) dom.logoUploadHint.textContent = T.logoHint;
+  if (dom.btnLogoUpload)  dom.btnLogoUpload.textContent  = T.logoBtn;
+  if (dom.btnLogoRemove)  dom.btnLogoRemove.textContent  = `✕ ${T.logoRemove}`;
 
   const sectorSel = $('sector-select');
   if (sectorSel && T.sectorOptions) {
@@ -1057,6 +1072,149 @@ function downloadTxt() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// LOGO UPLOAD
+// ─────────────────────────────────────────────────────────────────────────────
+function handleLogoUpload(file) {
+  if (!file) return;
+  if (!file.type.startsWith('image/')) return;
+  const MAX_BYTES = 2 * 1024 * 1024;
+  if (file.size > MAX_BYTES) {
+    showToastError(state.lang === 'es'
+      ? 'El logo es demasiado grande (máx. 2 MB).'
+      : 'Logo is too large (max 2 MB).');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    state.logoDataUrl = e.target.result;
+    showLogoPreview(state.logoDataUrl);
+  };
+  reader.readAsDataURL(file);
+}
+
+function showLogoPreview(dataUrl) {
+  if (!dom.logoPreview) return;
+  dom.logoPreview.src = dataUrl;
+  dom.logoPreview.classList.remove('hidden');
+  if (dom.logoUploadPlaceholder) dom.logoUploadPlaceholder.classList.add('hidden');
+  if (dom.btnLogoRemove)         dom.btnLogoRemove.classList.remove('hidden');
+}
+
+function clearLogo() {
+  state.logoDataUrl = null;
+  if (dom.logoPreview) {
+    dom.logoPreview.src = '';
+    dom.logoPreview.classList.add('hidden');
+  }
+  if (dom.logoUploadPlaceholder) dom.logoUploadPlaceholder.classList.remove('hidden');
+  if (dom.btnLogoRemove)         dom.btnLogoRemove.classList.add('hidden');
+  if (dom.logoInput) dom.logoInput.value = '';
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// EXPORT TO DOCX
+// ─────────────────────────────────────────────────────────────────────────────
+function downloadDocx() {
+  if (!state.currentProposal) return;
+  if (typeof htmlDocx === 'undefined') {
+    showToastError(state.lang === 'es'
+      ? 'La librería DOCX no está disponible. Verifica tu conexión a internet.'
+      : 'DOCX library not available. Check your internet connection.');
+    return;
+  }
+  const data = collectFormData();
+  const logoHtml = state.logoDataUrl
+    ? `<img src="${state.logoDataUrl}" style="max-height:80px;max-width:220px;object-fit:contain;display:block;margin-bottom:16px;">`
+    : '';
+  const bodyText = escHtml(state.currentProposal).replace(/\n/g, '<br>');
+  const html = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><body style="font-family:Arial,sans-serif;font-size:11pt;line-height:1.6;">${logoHtml}<div style="white-space:pre-wrap;">${bodyText}</div></body></html>`;
+  try {
+    const blob = htmlDocx.asBlob(html);
+    const filename = `propuesta-${(data.company || 'comercial').replace(/\s+/g, '-').toLowerCase()}-${Date.now()}.docx`;
+    const url = URL.createObjectURL(blob);
+    const a   = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    showToastError(state.lang === 'es' ? 'Error al generar el DOCX.' : 'Error generating DOCX.');
+    console.error('[Propuestas.pro] DOCX error:', err.message);
+  }
+}
+
+function downloadPdf() {
+  if (!state.currentProposal) return;
+  if (typeof window.jspdf === 'undefined') {
+    showToastError(state.lang === 'es'
+      ? 'La librería PDF no está disponible. Verifica tu conexión a internet.'
+      : 'PDF library not available. Check your internet connection.');
+    return;
+  }
+  const { jsPDF } = window.jspdf;
+  const data = collectFormData();
+  const doc  = new jsPDF({ unit: 'mm', format: 'a4' });
+  const pageW  = doc.internal.pageSize.getWidth();
+  const margin = 18;
+  const maxW   = pageW - margin * 2;
+  let y = margin;
+
+  // Logo
+  if (state.logoDataUrl) {
+    try {
+      const imgProps = doc.getImageProperties(state.logoDataUrl);
+      const logoH = 18;
+      const logoW = Math.min((imgProps.width / imgProps.height) * logoH, 70);
+      doc.addImage(state.logoDataUrl, imgProps.fileType || 'JPEG', margin, y, logoW, logoH);
+      y += logoH + 6;
+    } catch (_) { /* skip if image format unsupported */ }
+  }
+
+  // Company name as title
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(15);
+  doc.setTextColor(30, 30, 30);
+  if (data.company) {
+    doc.text(data.company, margin, y);
+    y += 8;
+  }
+
+  // Divider
+  doc.setDrawColor(180, 160, 80);
+  doc.setLineWidth(0.5);
+  doc.line(margin, y, pageW - margin, y);
+  y += 7;
+
+  // Body text
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9.5);
+  doc.setTextColor(40, 40, 40);
+  const lines = doc.splitTextToSize(state.currentProposal, maxW);
+  for (const line of lines) {
+    if (y > 278) {
+      doc.addPage();
+      y = margin;
+    }
+    doc.text(line, margin, y);
+    y += 5;
+  }
+
+  // Footer
+  const pageCount = doc.internal.getNumberOfPages();
+  doc.setFontSize(7.5);
+  doc.setTextColor(160, 160, 160);
+  for (let i = 1; i <= pageCount; i++) {
+    doc.setPage(i);
+    doc.text(`Propuestas.pro by MolvicStudios · ${i} / ${pageCount}`, pageW / 2, 291, { align: 'center' });
+  }
+
+  const filename = `propuesta-${(data.company || 'comercial').replace(/\s+/g, '-').toLowerCase()}-${Date.now()}.pdf`;
+  doc.save(filename);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // VARIANTS
 // ─────────────────────────────────────────────────────────────────────────────
 async function applyVariantChip(variant) {
@@ -1304,6 +1462,8 @@ function bindEvents() {
   // Result actions
   dom.btnCopy?.addEventListener('click', copyToClipboard);
   dom.btnDownload?.addEventListener('click', downloadTxt);
+  dom.btnDownloadDocx?.addEventListener('click', downloadDocx);
+  dom.btnDownloadPdf?.addEventListener('click', downloadPdf);
   dom.btnRegenerate?.addEventListener('click', generateProposal);
   dom.btnNew?.addEventListener('click', newProposal);
   dom.btnFavorite?.addEventListener('click', toggleFavorite);
@@ -1388,6 +1548,11 @@ function bindEvents() {
       }
     }
   });
+
+  // Logo upload
+  dom.btnLogoUpload?.addEventListener('click', () => dom.logoInput?.click());
+  dom.logoInput?.addEventListener('change', e => handleLogoUpload(e.target.files?.[0]));
+  dom.btnLogoRemove?.addEventListener('click', clearLogo);
 
   // Keyboard: Escape closes panels
   document.addEventListener('keydown', e => {
