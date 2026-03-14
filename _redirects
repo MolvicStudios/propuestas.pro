@@ -1,0 +1,3 @@
+# Clean URLs: strip .html extensions
+/privacy  /privacy.html  200
+/cookies  /cookies.html  200

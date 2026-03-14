@@ -91,7 +91,7 @@ También funciona en Vercel, Netlify, GitHub Pages o cualquier CDN estático.
 | Fuentes | Google Fonts: Syne · DM Sans · JetBrains Mono |
 | IA | Groq API — `llama-3.3-70b-versatile` / `llama-3.1-8b-instant` |
 | Persistencia | localStorage (historial, favoritos, borrador) · sessionStorage (API key) |
-| Deploy | Cloudflare Pages / Vercel / GitHub Pages |
+| Deploy | Cloudflare Pages (también compatible con Netlify, GitHub Pages) |
 
 ---
 

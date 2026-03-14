@@ -1,0 +1,30 @@
+# CSS assets
+/css/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# JS assets
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Favicon
+/favicon.svg
+  Cache-Control: public, max-age=86400
+/favicon.ico
+  Cache-Control: public, max-age=86400
+
+# HTML pages
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# All paths — security header
+/*
+  X-Content-Type-Options: nosniff
